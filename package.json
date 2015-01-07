@@ -1,0 +1,12 @@
+{
+	"name": "imap-pushover2",
+	"version": "0.0.1",
+	"description": "",
+	"license:": "MIT",
+	"private": true,
+	"dependencies": {
+		"imap": "0.8.14",
+		"js-yaml": "3.2.5",
+		"debug": "2.1.1"
+	}
+}
