@@ -1,7 +1,7 @@
 {
   "name": "imap-pushover2",
   "version": "0.0.1",
-  "description": "",
+  "description": "Listens to an IMAP mailbox using IDLE, then sends a Pushover notification when new emails arrive.",
   "license:": "MIT",
   "private": true,
   "dependencies": {
