@@ -5,7 +5,6 @@ var mailparser = require("mailparser").MailParser;
 var htmltotext = require('html-to-text');
 var pushover = require('pushover-notifications');
 var debug = require('debug');
-var util = require('util');
 
 var dbg = debug('imap-pushover2:general');
 var dbgErr = debug('imap-pushover2:error');
@@ -25,8 +24,9 @@ function connReady() {
 
 function connMail(count) {
   dbgImap('server notified about %s messages', count);
+  console.log('imap server notified about new messages');
   conn.search(['UNSEEN'], function(err, results) {
-    dbgImap('searching for new unread messages');
+    dbgImap('searching for unread messages');
     if(err) {
       errorExit(err);
     }
@@ -50,6 +50,7 @@ function connRetrieve(uid) {
   var f = conn.fetch([uid], { bodies: [''] });
   f.on('message', function(msg, seqno) {
     dbgImap('retrieved message %s as %s', uid, seqno);
+    console.log('retrieving new message uid %s', uid);
      msg.on('body', function(stream, info) {
       stream.on('data', function(chunk) {
         dbgImap('message part received');
@@ -92,7 +93,8 @@ function connEnd() {
 }
 
 function processMail(mail) {
-  dbgPush('message being processed %s', mail.date);
+  dbgPush('messge being processed %s', mail.date);
+  console.log('message from %s subject %s', mail.from[0].address, mail.subject);
   var text = 'no mail body';
   if(mail.text) {
     text = mail.text;
@@ -116,9 +118,11 @@ function processMail(mail) {
       from_text = mail.from[0].name;
     }
     dbgPush('sending pushover with priority %s', best_priority);
+    console.log('pushover notification with priority %s', best_priority);
     sendPushover(from_text, mail.subject, text, best_priority);
   } else {
-    dbgPush('no notification for this message');
+    dbgPush('no pushover notification for this message');
+    console.log('no pushover notification')
   }
 }
 
@@ -131,7 +135,7 @@ function sendPushover(from, subject, body, priority) {
   var title = from + ' - ' + subject;
   var msg = body.slice(0, config.body_length);
   dbgPush('title: %s', title);
-  dbgPush('message: %s', msg);
+  dbgPush('body: %s', msg);
   var p = new pushover(pushoverConfig);
   var pushoverMsg = {
       title: title,
@@ -146,7 +150,9 @@ function sendPushover(from, subject, body, priority) {
     if ( err ) {
       errorExit(err);
     }
-    dbgPush('sent to pushover %s', JSON.stringify(result));
+    jsonResult = JSON.stringify(result);
+    dbgPush('sent to pushover with result %s', jsonResult);
+    console.log('pushover result %s', jsonResult);
   })
 }
 
@@ -170,7 +176,7 @@ var imap_config = {
 };
 
 var conn = new imap(imap_config);
-var seen_msgs = []; //UIDs of seen messages
+var seen_msgs = []; //UIDs of seen mail
 
 conn.on('ready', connReady);
 conn.on('mail', connMail);
