@@ -32,7 +32,7 @@ If you're using the original imap-pushover and are happy with it, keep using it.
 There were a few annoyances with the previous version that are better in this version:
 
 - Management of multiple connections wasn't very good in the original. After leaving it running for over a day and receiving a few emails, there were many dangling connections from the program shown by lsof(8) or netstat(8). This version only uses a single connection at a time to the IMAP server, so shouldn't have that problem.
-- Memory usage in the original seemed kind of high for what it did, about 80-100MB on Linux amd64. The original version used two processes - one worker and another to monitor that worker, restart it if it crashed etc. Both of those processes have the same longish list of gems included, which increases the amount of memory used. This version only has a single process.
+- Memory usage in the original seemed kind of high for what it did, about 80-100MB on Linux amd64. The original version used two processes - one worker and another to monitor that worker, restart it if it crashed etc. Both of those processes have the same longish list of gems included, which increases the amount of memory used. This version only has a single process and uses about 30MB on Linux amd64.
 
 Keeping this program running as a daemon is currently not handled. That's best done by some other external program, such as systemd, daemontools or foreverjs. I don't plan on reimplementing that part of the original in this one.
 
