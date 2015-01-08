@@ -7,11 +7,11 @@ The Pushover notification can contain a link to read the rest of the email using
 ## Requirements
 
 - Node.js 0.10+
-- NPM packages: imap, mailparser, js-yaml, html-to-text, pushover-notifications, debug
+- NPM packages: imap, mailparser, html-to-text, pushover-notifications, debug
 
 ## Configuration
 
-Edit config.yaml with your own settings for the IMAP mail server and Pushover. You'll need to get your own API token and user key from Pushover.
+Edit config.json with your own settings for the IMAP mail server and Pushover. You'll need to get your own API token and user key from Pushover.
 
 notify_words sets the priority of different emails (for example, mailing list discussion vs things that should wake you up in the middle of the night).
 In the configuration file, it's expressed as a mapping of strings to [Pushover API priorities](https://pushover.net/api#priority). The highest priority found in the email is used for the Pushover message. A single space will match any email.
@@ -21,7 +21,7 @@ In the configuration file, it's expressed as a mapping of strings to [Pushover A
 ```sh
 export DEBUG='*' #enable debug logging
 node imap-pushover2.js
-node imap-pushover2.js /path/to/configfile #provide path for configuration file
+node imap-pushover2.js /path/to/config.json #provide path for configuration file
 ```
 
 ## Why write this again?

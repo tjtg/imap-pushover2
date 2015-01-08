@@ -1,5 +1,4 @@
 var fs = require('fs');
-var yaml = require('js-yaml');
 var imap = require('imap');
 var mailparser = require("mailparser").MailParser;
 var htmltotext = require('html-to-text');
@@ -157,16 +156,18 @@ function sendPushover(from, subject, body, priority) {
 }
 
 dbg('started');
-var configFile = 'config.yaml'
+var configFile = 'config.json'
+var config = {};
 if(process.argv[2]) {
   configFile = process.argv[2]
 }
 try {
-  config = yaml.safeLoad(fs.readFileSync(configFile, 'utf8'));
+  config = JSON.parse(fs.readFileSync(configFile, 'utf8'));
 } catch(err) {
   errorExit(err);
 }
 dbg('configuration: %s', JSON.stringify(config));
+
 var imap_config = {
   user: config.username,
   password: config.password,
@@ -174,7 +175,6 @@ var imap_config = {
   port: config.port,
   tls: config.ssl,
 };
-
 var conn = new imap(imap_config);
 var seen_msgs = []; //UIDs of seen mail
 

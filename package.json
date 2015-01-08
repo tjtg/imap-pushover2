@@ -10,7 +10,6 @@
   "dependencies": {
     "imap": "~0.8.14",
     "mailparser": "~0.4.7",
-    "js-yaml": "~3.2.5",
     "html-to-text": "~1.1.1",
     "pushover-notifications": "~0.2.2",
     "debug": "~2.1.1"
