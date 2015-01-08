@@ -21,6 +21,7 @@ In the configuration file, it's expressed as a mapping of strings to [Pushover A
 ```sh
 export DEBUG='*' #enable debug logging
 node imap-pushover2.js
+node imap-pushover2.js /path/to/configfile #provide path for configuration file
 ```
 
 ## Why write this again?
