@@ -1,9 +1,12 @@
 {
-  "name": "imap-pushover2",
+  "name": "imap-pushover",
   "version": "0.0.1",
   "description": "Listens to an IMAP mailbox using IDLE, then sends a Pushover notification when new emails arrive.",
+  "keywords": ["imap", "idle", "push", "notification", "pushover"],
   "license:": "MIT",
   "private": true,
+  "main": "imap-pushover2.js",
+  "bin": "bin/imap-pushover.js",
   "dependencies": {
     "imap": "~0.8.14",
     "mailparser": "~0.4.7",
@@ -11,5 +14,13 @@
     "html-to-text": "~1.1.1",
     "pushover-notifications": "~0.2.2",
     "debug": "~2.1.1"
+  },
+  "engines" : {
+    "node": "~0.10.35",
+    "npm": "~2.1.18"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/tjtg/imap-pushover2.git"
   }
 }
