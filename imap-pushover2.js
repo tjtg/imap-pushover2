@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var fs = require('fs');
 var imap = require('imap');
 var mailparser = require("mailparser").MailParser;
